@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Welcome to BestGraphics</title>
+  <style>
+    /* Reset-ish */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #0f172a; }
+
+    /* Page layout */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      place-items: center;
+      padding: 48px 24px;
+      background: linear-gradient(160deg,#0f172a 0%, #071133 60%), radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03), transparent 10%);
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    /* Decorative floating shapes */
+    .shape {
+      position: absolute;
+      filter: blur(30px);
+      opacity: 0.12;
+      transform: translateZ(0);
+      pointer-events: none;
+    }
+    .shape.shape-1 { width: 420px; height: 420px; background: linear-gradient(45deg,#7c3aed,#06b6d4); top: -80px; left: -80px; border-radius: 40%; }
+    .shape.shape-2 { width: 300px; height: 300px; background: linear-gradient(45deg,#f97316,#ef4444); bottom: -80px; right: -80px; border-radius: 45%; }
+
+    /* Card container */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: center;
+      z-index: 2;
+    }
+
+    /* Left content */
+    .content {
+      padding: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+    }
+
+    .logo {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom: 18px;
+    }
+    .logo .mark {
+      width:48px; height:48px; border-radius:10px;
+      background: linear-gradient(135deg,#06b6d4,#7c3aed);
+      display:inline-grid; place-items:center; font-weight:700; color:#fff; font-family:monospace;
+      box-shadow: 0 6px 18px rgba(124,58,237,0.25);
+    }
+    .logo .brand { font-size:14px; opacity:0.9; }
+
+    .eyebrow { font-size:13px; color: #c7d2fe; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+
+    h1 {
+      font-size: clamp(28px,4.6vw,52px);
+      line-height: 1.02;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+      color: #fff;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    h1 .accent {
+      background: linear-gradient(90deg,#ffd166,#f06292);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    p.lead {
+      margin-bottom: 22px;
+      color: rgba(255,255,255,0.9);
+      font-size: 16px;
+      max-width: 62ch;
+    }
+
+    .cta-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .btn {
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 12px 18px; border-radius: 12px;
+      background: linear-gradient(90deg,#7c3aed,#06b6d4);
+      color: #fff; text-decoration: none; font-weight:600;
+      box-shadow: 0 8px 30px rgba(7,10,25,0.45);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:active { transform: translateY(1px) scale(.997); }
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.95);
+      box-shadow: none;
+      font-weight:500;
+      padding: 10px 16px;
+    }
+
+    /* Right preview/illustration */
+    .preview {
+      padding: 28px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 260px;
+    }
+
+    .mock {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #071133;
+      padding: 18px;
+      box-shadow: inset 0 -20px 40px rgba(0,0,0,0.25);
+      transform-origin: center;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .mock .screen {
+      height: 180px;
+      border-radius:10px;
+      background: linear-gradient(120deg,#06102b 0%, #0b1536 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: #fff;
+      font-weight:600;
+      font-size:18px;
+      letter-spacing:0.2px;
+      position:relative;
+    }
+
+    .mock .gloss {
+      position:absolute; inset:0; pointer-events:none;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%);
+      mix-blend-mode: overlay;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+      100% { transform: translateY(0) rotate(-1deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 920px) {
+      .container { grid-template-columns: 1fr; padding: 12px; }
+      .preview { order: -1; }
+    }
+
+    @media (max-width: 460px) {
+      .content { padding: 22px; border-radius: 14px; }
+      .logo .mark { width:42px; height:42px; }
+      .mock .screen { height: 150px; font-size:16px; }
+    }
+
+    /* small helper */
+    .muted { color: rgba(255,255,255,0.7); font-size:13px; }
+  </style>
+</head>
+<body>
+  <main class="hero" role="main" aria-labelledby="hero-title">
+    <!-- Decorative shapes -->
+    <div class="shape shape-1" aria-hidden="true"></div>
+    <div class="shape shape-2" aria-hidden="true"></div>
+
+    <div class="container" role="region" aria-label="Welcome to BestGraphics">
+      <section class="content" aria-labelledby="hero-title">
+        <div class="logo" aria-hidden="false">
+          <div class="mark">BG</div>
+          <div class="brand">
+            <div style="font-weight:700">BestGraphics</div>
+          </div>
+        </div>
+
+        <div class="eyebrow">Welcome</div>
+        <h1 id="hero-title"> <span class="accent">BestGraphics</span>
+        </h1>
+
+        <p class="lead">
+          Discover our four distinct businesses, each leading in their respective industries with innovation, quality, and excellence.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn" href="#works" title="See our work">See our work</a>
+          <a class="btn secondary" href="#contact" title="Get in touch">Get in touch</a>
+        </div>
+
+      </section>
+
+
+    </div>
+  </main>
+</body>
+</html>
