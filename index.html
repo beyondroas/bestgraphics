@@ -1,215 +1,379 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Welcome to  new</title>
-  <style>
-    /* Reset-ish */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html,body { height: 100%; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; color: #0f172a; }
-
-    /* Page layout */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr;
-      place-items: center;
-      padding: 48px 24px;
-      background: linear-gradient(160deg,#0f172a 0%, #071133 60%), radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03), transparent 10%);
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-    }
-
-    /* Decorative floating shapes */
-    .shape {
-      position: absolute;
-      filter: blur(30px);
-      opacity: 0.12;
-      transform: translateZ(0);
-      pointer-events: none;
-    }
-    .shape.shape-1 { width: 420px; height: 420px; background: linear-gradient(45deg,#7c3aed,#06b6d4); top: -80px; left: -80px; border-radius: 40%; }
-    .shape.shape-2 { width: 300px; height: 300px; background: linear-gradient(45deg,#f97316,#ef4444); bottom: -80px; right: -80px; border-radius: 45%; }
-
-    /* Card container */
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 32px;
-      align-items: center;
-      z-index: 2;
-    }
-
-    /* Left content */
-    .content {
-      padding: 36px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: 18px;
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      backdrop-filter: blur(6px);
-    }
-
-    .logo {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom: 18px;
-    }
-    .logo .mark {
-      width:48px; height:48px; border-radius:10px;
-      background: linear-gradient(135deg,#06b6d4,#7c3aed);
-      display:inline-grid; place-items:center; font-weight:700; color:#fff; font-family:monospace;
-      box-shadow: 0 6px 18px rgba(124,58,237,0.25);
-    }
-    .logo .brand { font-size:14px; opacity:0.9; }
-
-    .eyebrow { font-size:13px; color: #c7d2fe; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
-
-    h1 {
-      font-size: clamp(28px,4.6vw,52px);
-      line-height: 1.02;
-      margin-bottom: 14px;
-      letter-spacing: -0.02em;
-      color: #fff;
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-    h1 .accent {
-      background: linear-gradient(90deg,#ffd166,#f06292);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    p.lead {
-      margin-bottom: 22px;
-      color: rgba(255,255,255,0.9);
-      font-size: 16px;
-      max-width: 62ch;
-    }
-
-    .cta-row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
-    .btn {
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 12px 18px; border-radius: 12px;
-      background: linear-gradient(90deg,#7c3aed,#06b6d4);
-      color: #fff; text-decoration: none; font-weight:600;
-      box-shadow: 0 8px 30px rgba(7,10,25,0.45);
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-    .btn:active { transform: translateY(1px) scale(.997); }
-    .btn.secondary {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.95);
-      box-shadow: none;
-      font-weight:500;
-      padding: 10px 16px;
-    }
-
-    /* Right preview/illustration */
-    .preview {
-      padding: 28px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height: 260px;
-    }
-
-    .mock {
-      width: 100%;
-      max-width: 320px;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #071133;
-      padding: 18px;
-      box-shadow: inset 0 -20px 40px rgba(0,0,0,0.25);
-      transform-origin: center;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .mock .screen {
-      height: 180px;
-      border-radius:10px;
-      background: linear-gradient(120deg,#06102b 0%, #0b1536 100%);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color: #fff;
-      font-weight:600;
-      font-size:18px;
-      letter-spacing:0.2px;
-      position:relative;
-    }
-
-    .mock .gloss {
-      position:absolute; inset:0; pointer-events:none;
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), transparent 30%);
-      mix-blend-mode: overlay;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) rotate(-1deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
-      100% { transform: translateY(0) rotate(-1deg); }
-    }
-
-    /* Responsive */
-    @media (max-width: 920px) {
-      .container { grid-template-columns: 1fr; padding: 12px; }
-      .preview { order: -1; }
-    }
-
-    @media (max-width: 460px) {
-      .content { padding: 22px; border-radius: 14px; }
-      .logo .mark { width:42px; height:42px; }
-      .mock .screen { height: 150px; font-size:16px; }
-    }
-
-    /* small helper */
-    .muted { color: rgba(255,255,255,0.7); font-size:13px; }
-  </style>
-</head>
-<body>
-  <main class="hero" role="main" aria-labelledby="hero-title">
-    <!-- Decorative shapes -->
-    <div class="shape shape-1" aria-hidden="true"></div>
-    <div class="shape shape-2" aria-hidden="true"></div>
-
-    <div class="container" role="region" aria-label="Welcome to BestGraphics">
-      <section class="content" aria-labelledby="hero-title">
-        <div class="logo" aria-hidden="false">
-          <div class="mark">BG</div>
-          <div class="brand">
-            <div style="font-weight:700">BestGraphics New</div>
-          </div>
+    <!--<< Header Area >>-->
+    <head>
+        <!-- ========== Meta Tags ========== -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="BestGraphics">
+        <meta name="description" content="Best Graphics - Ink. Ideas. Impact.">
+        <!-- ======== Page title ============ -->
+        <title>Best Graphics - Ink. Ideas. Impact.</title>
+        <!--<< Favcion >>-->
+        <link rel="shortcut icon" href="assets/img/favicon.png">
+        <!--<< Bootstrap min.css >>-->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+        <!--<< All Min Css >>-->
+        <link rel="stylesheet" href="assets/css/all.min.css">
+        <!--<< Animate.css >>-->
+        <link rel="stylesheet" href="assets/css/animate.css">
+        <!--<< Magnific Popup.css >>-->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css">
+        <!--<< MeanMenu.css >>-->
+        <link rel="stylesheet" href="assets/css/meanmenu.css">
+        <!--<< Swiper Bundle.css >>-->
+        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        <!--<< Nice Select.css >>-->
+        <link rel="stylesheet" href="assets/css/nice-select.css">
+        <!--<< Color.css >>-->
+        <link rel="stylesheet" href="assets/css/color.css">
+        <!--<< Main.css >>-->
+        <link rel="stylesheet" href="assets/css/main.css">
+    </head>
+    <body>
+        <!-- Preloader Start -->
+        <div id="preloader" class="preloader">
+            <div class="animation-preloader">
+                <div class="spinner"></div>
+                <div class="txt-loading">
+                    <span data-text-preloader="B" class="letters-loading">
+                        B
+                    </span>
+                    <span data-text-preloader="E" class="letters-loading">
+                        E
+                    </span>
+                    <span data-text-preloader="S" class="letters-loading">
+                        S
+                    </span>
+                    <span data-text-preloader="T" class="letters-loading">
+                        T
+                    </span>
+                    <span data-text-preloader="G" class="letters-loading">
+                        G
+                    </span>
+                    <span data-text-preloader="A" class="letters-loading">
+                        A
+                    </span>
+                    <span data-text-preloader="P" class="letters-loading">
+                        P
+                    </span>
+                    <span data-text-preloader="H" class="letters-loading">
+                        H
+                    </span>
+                    <span data-text-preloader="I" class="letters-loading">
+                        I
+                    </span>
+                    <span data-text-preloader="C" class="letters-loading">
+                        C
+                    </span>
+                    <span data-text-preloader="S" class="letters-loading">
+                        S
+                    </span>
+                </div>
+                <p class="text-center">Loading</p>
+            </div>
+            <div class="loader">
+                <div class="row">
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-left">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                    <div class="col-3 loader-section section-right">
+                        <div class="bg"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="eyebrow">Welcome</div>
-        <h1 id="hero-title"> <span class="accent">BestGraphics New</span>
-        </h1>
-
-        <p class="lead">
-          Discover our four distinct businesses, each leading in their respective industries with innovation, quality, and excellence.
-        </p>
-
-        <div class="cta-row">
-          <a class="btn" href="#works" title="See our work">See our work</a>
-          <a class="btn secondary" href="#contact" title="Get in touch">Get in touch</a>
+        <!-- Back To Top Start -->
+        <button id="back-top" class="back-to-top">
+            <i class="fa-regular fa-arrow-up"></i>
+        </button>
+        <div class="fix-area">
+            <div class="offcanvas__info">
+                <div class="offcanvas__wrapper">
+                    <div class="offcanvas__content">
+                        <div class="offcanvas__top mb-5 d-flex justify-content-between align-items-center">
+                            <div class="offcanvas__logo">
+                                <a href="index.html">
+                                    <img src="assets/img/logo/logo-bestgraphics.png" alt="logo-img">
+                                </a>
+                            </div>
+                            <div class="offcanvas__close">
+                                <button>
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text d-none d-xl-block">
+                            Nullam dignissim, ante scelerisque the  is euismod fermentum odio sem semper the is erat, a feugiat leo urna eget eros. Duis Aenean a imperdiet risus.
+                        </p>
+                        <div class="mobile-menu fix mb-3"></div>
+                        <div class="offcanvas__contact">
+                            <h4>Contact Info</h4>
+                            <ul>
+                                <li class="d-flex align-items-center">
+                                    <div class="offcanvas__contact-icon">
+                                        <i class="fal fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="offcanvas__contact-text">
+                                        <a target="_blank" href="#">Surendranagar, Gujarat, India</a>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <div class="offcanvas__contact-icon mr-15">
+                                        <i class="fal fa-envelope"></i>
+                                    </div>
+                                    <div class="offcanvas__contact-text">
+                                        <a href="mailto:bestg80@gmail.com">
+                                            <span class="mailto:bestg80@gmail.com">bestg80@gmail.com</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <div class="offcanvas__contact-icon mr-15">
+                                        <i class="fal fa-clock"></i>
+                                    </div>
+                                    <div class="offcanvas__contact-text">
+                                        <a target="_blank" href="#">Mod-friday, 09am -05pm</a>
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-center">
+                                    <div class="offcanvas__contact-icon mr-15">
+                                        <i class="far fa-phone"></i>
+                                    </div>
+                                    <div class="offcanvas__contact-text">
+                                        <a href="tel:+11002345909">+91 704 555 0127</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="header-button mt-4"></div>
+                            <a href="contact.html" class="theme-btn">
+                                <span>Let’s Talk
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </a>
+                            <div class="social-icon d-flex align-items-center">
+                                <a href="#">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="#">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="offcanvas__overlay"></div>
+        <!-- Header Section Start -->
+        <header id="header-sticky" class=" header-1 header-2">
+            <div class="container">
+                <div class="mega-menu-wrapper">
+                    <div class="header-main">
+                        <div class="logo">
+                            <a href="index.html" class="header-logo">
+                                <img src="assets/img/logo/logo-bestgraphics.png" alt="logo-img">
+                            </a>
+                            <a href="index.html" class="header-logo-2 d-none">
+                                <img src="assets/img/logo/logo-bestgraphics.png" alt="logo-img">
+                            </a>
+                        </div>
+                        <div class="header-right d-flex justify-content-end align-items-center">
+                            <div class="mean__menu-wrapper">
+                                <div class="main-menu">
+                                    <nav id="mobile-menu" style="display: block;">
+                                        <ul>
+                                            <li>
+                                                <a href="index.html">Home</a>
+                                            </li>
+                                            <li>
+                                                <a href="">about</a>
+                                            </li>
+                                            <li>
+                                                <a href="best-bearing.html">Best Bearing</a>
+                                            </li>
+                                            <li>
+                                                <a href="best-roller.html">Best Roller</a>
+                                            </li>
+                                            <li>
+                                                <a href="best-crafts.html">Best Crafts</a>
+                                            </li>
+                                            <li>
+                                                <a href="contact.html">Contact Us</a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
 
-      </section>
+                            <div class="contact-items">
+                                <div class="icon">
+                                    <i class="fa-regular fa-phone"></i>
+                                </div>
+                                <div class="content">
+                                    <span>Call Us 24/7</span>
+                                    <h6>
+                                        <a href="tel:+00479394888">+91 704 555 0127</a>
+                                    </h6>
+                                </div>
+                            </div>
+                            <div class="header__hamburger d-xl-block my-auto">
+                                <div class="sidebar__toggle">
+                                    <i class="fa-solid fa-bars-staggered"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
+        <!-- Hero Section Start -->
+        <section class="hero-section-2 hero-2 bg-cover" style="background-image: url('assets/img/hero/hero-bg-2.jpg');">
+            <div class="hero-shape float-bob-y">
+                <img src="assets/img/hero/hero-shape-2.png" alt="img">
+            </div>
+            <div class="hero-shape-2 float-bob-y">
+                <img src="assets/img/hero/hero-shape-3.png" alt="img">
+            </div>
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="hero-content">
+                            <h1>
+                                We Make the Most Creative Business Solution
+                            </h1>
+                            <p>
+                                Our mission is to provide innovative solutions that drive growth, efficiency, and lasting success. From strategic planning way.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-image">
+                            <img src="assets/img/hero/hero-image-2.png" alt="img">
+                            <div class="box-shape-1 float-bob-y">
+                                <a href=""><img src="assets/img/logo/logo-bearing.svg" alt="img"></a>
+                            </div>
+                            <div class="box-shape-2 float-bob-x">
+                                <a href=""><img src="assets/img/logo/logo-roller.svg" alt="img"></a>
+                            </div>
+                            <div class="box-shape-3 float-bob-y">
+                                <a href=""><img src="assets/img/logo/logo-crafts.png" alt="img"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Footer Section Start -->
+        <section class="footer-section fix bg-cover">
+            <div class="container">
+                <div class="contact-info-area">
+                    <div class="content">
+                        <div class="section-title">
+                            <h2 class="text-white wow fadeInUp" data-wow-delay=".3s">
+                                Like to Learn More About Our
+                                <br>
+                                Projects and Expertise?
+                            </h2>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="theme-btn wow fadeInUp" data-wow-delay=".5s">
+                        <span>Get Free Consultation</span>
+                        <i class="far fa-long-arrow-right"></i>
+                    </a>
+                </div>
 
-    </div>
-  </main>
-</body>
+                <div class="contact-info-area-2">
+                    <div class="logo-image">
+                        <img src="assets/img/logo/logo-bestgraphics-white.png" alt="img">
+                    </div>
+                    <div class="contact-info-items wow fadeInUp" data-wow-delay=".3s">
+                        <div class="icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div class="content">
+                            <p>Phone:</p>
+                            <h6>
+                                <a href="tel:7045550127">+91 704 555 0127</a>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="contact-info-items wow fadeInUp" data-wow-delay=".5s">
+                        <div class="icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <div class="content">
+                            <p>Mail Us:</p>
+                            <h6>
+                                <a href="mailto:bestg80@gmail.com">bestg80@gmail.com</a>
+                            </h6>
+                        </div>
+                    </div>
+                    <div class="contact-info-items wow fadeInUp" data-wow-delay=".7s">
+                        <div class="icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <div class="content">
+                            <p>Address:</p>
+                            <h6>
+                                Surendranagar, Gujarat, India
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-wrapper">
+                        <p class="wow fadeInUp" data-wow-delay=".3s">
+                            © 2025 Best Graphics / All rights reserved
+                        </p>
+                        <div class="social-icon d-flex align-items-center">
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--<< All JS Plugins >>-->
+        <script src="assets/js/jquery-3.7.1.min.js"></script>
+        <!--<< Viewport Js >>-->
+        <script src="assets/js/viewport.jquery.js"></script>
+        <!--<< Bootstrap Js >>-->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <script src="assets/js/jquery.nice-select.min.js"></script>
+        <!--<< Waypoints Js >>-->
+        <script src="assets/js/jquery.waypoints.js"></script>
+        <!--<< Counterup Js >>-->
+        <script src="assets/js/jquery.counterup.min.js"></script>
+        <!--<< Swiper Slider Js >>-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+        <!--<< MeanMenu Js >>-->
+        <script src="assets/js/jquery.meanmenu.min.js"></script>
+        <!--<< Magnific Popup Js >>-->
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+        <!--<< Wow Animation Js >>-->
+        <script src="assets/js/wow.min.js"></script>
+        <!--<< Main.js >>-->
+        <script src="assets/js/main.min.js"></script>
+    </body>
 </html>
