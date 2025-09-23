@@ -3015,6 +3015,11 @@ span {
   top: 62%;
   left: 70px;
 }
+.hero-2 .hero-image .box-shape-4{
+  position: absolute;
+  top: 62%;
+  right:70px;
+}
 
 .offcanvas__info {
   background: var(--white) none repeat scroll 0 0;
@@ -4070,7 +4075,7 @@ span {
 }
 .hero-2 .hero-image .box-shape-1 {
   position: absolute;
-  top: 180px;
+  top: 60px;
   left: 0;
 }
 @media (max-width: 1199px) {
@@ -4091,6 +4096,11 @@ span {
   .hero-2 .hero-image .box-shape-3{
     right: 33px;
     left: auto;
+  }
+  .hero-2 .hero-image .box-shape-4{
+    top: 72%;
+    left: 0;
+    right: auto;
   }
 }
 
