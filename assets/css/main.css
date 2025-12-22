@@ -2797,7 +2797,7 @@ span {
   background: var(--white);
   position: relative;
   top: 0;
-  z-index: 9;
+  z-index: 999999;
   width: 100%;
 }
 .header-1.header-2 .header-main {
