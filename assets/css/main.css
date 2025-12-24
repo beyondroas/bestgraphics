@@ -3037,7 +3037,7 @@ span {
   -webkit-transition: transform 0.45s ease-in-out, opacity 0.45s ease-in-out;
   -moz-transition: transform 0.45s ease-in-out, opacity 0.45s ease-in-out;
   transition: transform 0.45s ease-in-out, opacity 0.45s ease-in-out;
-  z-index: 99999;
+  z-index: 9999999;
   overflow-y: scroll;
   overscroll-behavior-y: contain;
   scrollbar-width: none;
