@@ -3147,7 +3147,7 @@ span {
   height: 100%;
   width: 100%;
   background: #151515;
-  z-index: 900;
+  z-index: 9009999;
   top: 0;
   opacity: 0;
   visibility: hidden;
