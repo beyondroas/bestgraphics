@@ -1072,19 +1072,21 @@ across various industries.
                                             <div class="form-clt">
                                                 <input
                                                     type="text"
-                                                    name="name"
+                                                    name="full_name"
                                                     id="email4"
                                                     placeholder="Your Name"
+                                                    required
                                                 >
                                             </div>
                                         </div>
                                         <div class="col-lg-6 wow fadeInUp" data-wow-delay=".5s">
                                             <div class="form-clt">
                                                 <input
-                                                    type="text"
+                                                    type="email"
                                                     name="email"
                                                     id="name4"
                                                     placeholder="Email Address"
+                                                    required
                                                 >
                                             </div>
                                         </div>
@@ -1092,9 +1094,10 @@ across various industries.
                                             <div class="form-clt">
                                                 <input
                                                     type="text"
-                                                    name="name"
+                                                    name="phone"
                                                     id="name5"
                                                     placeholder="Phone Number"
+                                                    required
                                                 >
                                             </div>
                                         </div>
@@ -1102,15 +1105,21 @@ across various industries.
                                             <div class="form-clt">
                                                 <input
                                                     type="text"
-                                                    name="name"
+                                                    name="subject"
                                                     id="name6"
                                                     placeholder="Subject"
+                                                    required
                                                 >
                                             </div>
                                         </div>
                                         <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
                                             <div class="form-clt">
-                                                <textarea name="message" id="message" placeholder="Type your message"></textarea>
+                                                <textarea
+                                                    name="message"
+                                                    id="message"
+                                                    placeholder="Type your message"
+                                                    required
+                                                ></textarea>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 wow fadeInUp" data-wow-delay=".5s">
@@ -1118,6 +1127,10 @@ across various industries.
                                                 <span>Send Your Message</span>
                                                 <i class="far fa-long-arrow-right"></i>
                                             </button>
+                                        </div>
+                                        <!-- Response message -->
+                                        <div class="col-lg-12">
+                                            <p id="formResponse"></p>
                                         </div>
                                     </div>
                                 </form>
@@ -1315,5 +1328,35 @@ across various industries.
         <script src="assets/js/wow.min.js"></script>
         <!--<< Main.js >>-->
         <script src="assets/js/main.min.js"></script>
+        <script>
+document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let form = this;
+    let formData = new FormData(form);
+    let responseBox = document.getElementById("formResponse");
+
+    responseBox.innerHTML = "Sending...";
+    responseBox.style.color = "#007bff";
+
+    fetch("contact.php", {
+        method: "POST",
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        responseBox.innerHTML = data.message;
+        responseBox.style.color = data.status === "success" ? "green" : "red";
+
+        if (data.status === "success") {
+            form.reset();
+        }
+    })
+    .catch(() => {
+        responseBox.innerHTML = "❌ Something went wrong.";
+        responseBox.style.color = "red";
+    });
+});
+</script>
     </body>
 </html>
