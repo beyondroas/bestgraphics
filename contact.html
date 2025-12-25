@@ -327,9 +327,11 @@
                                     </div>
                                     <div class="contect-content">
                                         <span>Mail us</span>
-                                        <h3><a href="mailto:bestg80@gmail.com">
-                                            <span class="mailto:bestg80@gmail.com">bestg80@gmail.com</span>
-                                        </a></h3>
+                                        <h3>
+                                            <a href="mailto:bestg80@gmail.com">
+                                                <span class="mailto:bestg80@gmail.com">bestg80@gmail.com</span>
+                                            </a>
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
@@ -339,44 +341,79 @@
                                 <h3 class="wow fadeInUp" data-wow-delay=".5s">
                                     Send Your Enquiries!
                                 </h3>
-                                <form id="contactForm" class="contact-form-items">
-    <div class="row g-4">
-
-        <div class="col-lg-6">
-            <input type="text" name="full_name" placeholder="Your Name" required>
-        </div>
-
-        <div class="col-lg-6">
-            <input type="email" name="email" placeholder="Email Address" required>
-        </div>
-
-        <div class="col-lg-6">
-            <input type="text" name="phone" placeholder="Phone Number" required>
-        </div>
-
-        <div class="col-lg-6">
-            <input type="text" name="subject" placeholder="Subject" required>
-        </div>
-
-        <div class="col-lg-12">
-            <textarea name="message" placeholder="Type your message" required></textarea>
-        </div>
-
-        <div class="col-lg-12">
-            <button type="submit" class="theme-btn">
-                <span>Send Your Enquiries</span>
-            </button>
-        </div>
-
-        <!-- Response Message -->
-        <div class="col-lg-12">
-            <p id="formResponse"></p>
-        </div>
-
-    </div>
-</form>
-
-
+                                <form
+                                    action="contact.php"
+                                    id="contact-form"
+                                    method="POST"
+                                    class="contact-form-items"
+                                >
+                                    <div class="row g-4">
+                                        <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <div class="form-clt">
+                                                <input
+                                                    type="text"
+                                                    name="full_name"
+                                                    id="email4"
+                                                    placeholder="Your Name"
+                                                    required
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 wow fadeInUp" data-wow-delay=".5s">
+                                            <div class="form-clt">
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    id="name4"
+                                                    placeholder="Email Address"
+                                                    required
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
+                                            <div class="form-clt">
+                                                <input
+                                                    type="text"
+                                                    name="phone"
+                                                    id="name5"
+                                                    placeholder="Phone Number"
+                                                    required
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 wow fadeInUp" data-wow-delay=".5s">
+                                            <div class="form-clt">
+                                                <input
+                                                    type="text"
+                                                    name="subject"
+                                                    id="name6"
+                                                    placeholder="Subject"
+                                                    required
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 wow fadeInUp" data-wow-delay=".3s">
+                                            <div class="form-clt">
+                                                <textarea
+                                                    name="message"
+                                                    id="message"
+                                                    placeholder="Type your message"
+                                                    required
+                                                ></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 wow fadeInUp" data-wow-delay=".5s">
+                                            <button type="submit" class="theme-btn">
+                                                <span>Send Your Enquiries</span>
+                                                <i class="far fa-long-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                        <!-- Response message -->
+                                        <div class="col-lg-12">
+                                            <p id="formResponse"></p>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -395,7 +432,6 @@
                 </div>
             </div>
         </div>
-        
         <!-- Footer Section Start -->
         <section class="footer-section fix bg-cover">
             <div class="container">
@@ -496,21 +532,21 @@
         <!--<< Main.js >>-->
         <script src="assets/js/main.min.js"></script>
         <script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // stop page reload
+document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
 
     let form = this;
     let formData = new FormData(form);
     let responseBox = document.getElementById("formResponse");
 
     responseBox.innerHTML = "Sending...";
-    responseBox.style.color = "blue";
+    responseBox.style.color = "#007bff";
 
     fetch("contact.php", {
         method: "POST",
         body: formData
     })
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
         responseBox.innerHTML = data.message;
         responseBox.style.color = data.status === "success" ? "green" : "red";
@@ -519,8 +555,8 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
             form.reset();
         }
     })
-    .catch(error => {
-        responseBox.innerHTML = "Something went wrong. Try again.";
+    .catch(() => {
+        responseBox.innerHTML = "❌ Something went wrong.";
         responseBox.style.color = "red";
     });
 });

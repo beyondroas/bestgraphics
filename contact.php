@@ -5,11 +5,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $to = "sodedara@gmail.com";
 
-    $name = trim($_POST['full_name']);
-    $email = trim($_POST['email']);
-    $phone = trim($_POST['phone']);
-    $subject = trim($_POST['subject']);
-    $message = trim($_POST['message']);
+    $name = trim($_POST['full_name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $subject = trim($_POST['subject'] ?? '');
+    $message = trim($_POST['message'] ?? '');
 
     if (!$name || !$email || !$message) {
         echo json_encode([
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit;
     }
 
-    $email_subject = "New Enquiry: $subject";
+    $email_subject = "New Contact Enquiry: $subject";
 
     $email_body = "
 Name: $name
@@ -42,7 +42,7 @@ $message
     } else {
         echo json_encode([
             "status" => "error",
-            "message" => "❌ Failed to send message. Try again later."
+            "message" => "❌ Email sending failed."
         ]);
     }
 }
