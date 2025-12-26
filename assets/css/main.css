@@ -1390,6 +1390,7 @@ span {
   border: 1.8px solid rgba(255, 255, 255, 0.13);
   text-align: center;
   color: var(--white);
+  min-width: 55px3656;
 }
 .contact-info-area-2 .contact-info-items .content p {
   color: var(--theme);
@@ -3652,9 +3653,9 @@ span {
 }
 
 @media (max-width: 767px) {
-  br {
+  /* br {
     display: none;
-  }
+  } */
 }
 
 .mt-60 {
