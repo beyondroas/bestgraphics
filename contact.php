@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $to = "sodedara@gmail.com";
+    $to = "bestg80@gmail.com";
 
     $name = trim($_POST['full_name'] ?? '');
     $email = trim($_POST['email'] ?? '');

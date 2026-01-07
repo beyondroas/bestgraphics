@@ -339,7 +339,7 @@ Surendranagar - 363 002.<br>
                 <div class="container">
                     <div class="footer-wrapper">
                         <p class="wow fadeInUp" data-wow-delay=".3s">
-                            © 2025 Best Graphics / All rights reserved
+                            © <span id="current-year"></span> Best Graphics / All rights reserved. <a href="https://www.beyondroas.in/" style="color: white; text-decoration: underline;" target="_blank">Made with ❤️ by BeyondRoas</a>
                         </p>
                         <div class="social-icon d-flex align-items-center">
                             <a href="#">
@@ -377,5 +377,8 @@ Surendranagar - 363 002.<br>
         <script src="assets/js/wow.min.js"></script>
         <!--<< Main.js >>-->
         <script src="assets/js/main.min.js"></script>
+        <script>
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+        </script>
     </body>
 </html>

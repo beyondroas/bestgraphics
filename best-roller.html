@@ -1239,7 +1239,7 @@
                 <div class="container">
                     <div class="footer-wrapper">
                         <p class="wow fadeInUp" data-wow-delay=".3s">
-                            © 2025 Best Graphics / All rights reserved
+                            © <span id="current-year"></span> Best Graphics / All rights reserved. <a href="https://www.beyondroas.in/" style="color: white; text-decoration: underline;" target="_blank">Made with ❤️ by BeyondRoas</a>
                         </p>
                         <div class="social-icon d-flex align-items-center">
                             <a href="#">
@@ -1307,5 +1307,8 @@ document.getElementById("contact-form").addEventListener("submit", function(e) {
     });
 });
 </script>
+<script>
+        document.getElementById("current-year").textContent = new Date().getFullYear();
+        </script>
     </body>
 </html>
